@@ -16,6 +16,7 @@ class NotesApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       home: const HomeView(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
