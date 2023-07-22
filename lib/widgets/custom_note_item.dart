@@ -22,7 +22,7 @@ class CustomNoteItem extends StatelessWidget {
             subtitle: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text('This app is built by Mohamed Salah', style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 color: Colors.black.withOpacity(0.5),
               ),),
             ),
