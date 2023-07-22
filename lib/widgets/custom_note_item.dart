@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+class CustomNoteItem extends StatelessWidget {
+  const CustomNoteItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
+      decoration: BoxDecoration(
+        color: Colors.yellow[700],
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ListTile(
+            title: const Text('Flutter Tips', style: TextStyle(
+              color: Colors.black,
+              fontSize: 26,
+            ),),
+            subtitle: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text('This app is built by Mohamed Salah', style: TextStyle(
+                fontSize: 20,
+                color: Colors.black.withOpacity(0.5),
+              ),),
+            ),
+            trailing: const Icon(Icons.delete_rounded,
+            size: 24,
+            color: Colors.black,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Text('July22 , 2023', style: TextStyle(
+              color: Colors.black.withOpacity(0.5),
+            ),),
+          )
+        ],
+      ),
+    );
+  }
+}
