@@ -26,52 +26,53 @@ class _AddNoteFormState extends State<AddNoteForm> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 32,
-          ),
-          CustomTextField(
-            hintText: 'Title',
-            onSaved: (value) {
-              title = value;
-            },
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          CustomTextField(
-            onSaved: (value){
-              subtitle = value;
-            },
-            hintText: 'Content',
-            maxLines: 5,
-            ),
-          const SizedBox(
-            height: 32,
-          ),
-          CustomButton(
-            onTap: () {
-              if(formKey.currentState!.validate()){
-                formKey.currentState!.save();
-                var noteModel = NoteModel(
-                  title: title!,
-                  subTitle: subtitle!,
-                  date: DateTime.now().toString(),
-                  color: Colors.blueAccent.value
-                  );
-                BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
-
-              }else{
-                autovalidateMode = AutovalidateMode.always;
-              }
-            },
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-        ]
+      child: Column(children: [
+        const SizedBox(
+          height: 32,
         ),
+        CustomTextField(
+          hintText: 'Title',
+          onSaved: (value) {
+            title = value;
+          },
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        CustomTextField(
+          onSaved: (value) {
+            subtitle = value;
+          },
+          hintText: 'Content',
+          maxLines: 5,
+        ),
+        const SizedBox(
+          height: 32,
+        ),
+        BlocBuilder<AddNoteCubit, AddNoteState>(
+          builder: (context, state) {
+            return CustomButton(
+              isLoading: state is AddNoteLoading? true : false,
+              onTap: () {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                  var noteModel = NoteModel(
+                      title: title!,
+                      subTitle: subtitle!,
+                      date: DateTime.now().toString(),
+                      color: Colors.blueAccent.value);
+                  BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                } else {
+                  autovalidateMode = AutovalidateMode.always;
+                }
+              },
+            );
+          },
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+      ]),
     );
   }
 }
