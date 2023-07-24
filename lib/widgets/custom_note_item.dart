@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
-class CustomNoteItem extends StatelessWidget {
-  const CustomNoteItem({super.key});
+import '../models/note_model.dart';
 
+class CustomNoteItem extends StatelessWidget {
+  const CustomNoteItem({super.key, required this.note});
+
+  final NoteModel note;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -13,32 +18,38 @@ class CustomNoteItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
         decoration: BoxDecoration(
-          color: Colors.yellow[700],
+          color: Color(note.color),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: const Text('Flutter Tips', style: TextStyle(
+              title: Text(note.title, style: const TextStyle(
                 color: Colors.black,
                 fontSize: 26,
               ),),
               subtitle: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text('This app is built by Mohamed Salah', style: TextStyle(
+                child: Text(note.subTitle, style: TextStyle(
                   fontSize: 18,
                   color: Colors.black.withOpacity(0.5),
                 ),),
               ),
-              trailing: const Icon(Icons.delete_rounded,
-              size: 24,
-              color: Colors.black,
+              trailing: IconButton(
+                onPressed: (){
+                  note.delete();
+                  BlocProvider.of<NotesCubit>(context).fetchNotes();
+                },
+                icon: const Icon( 
+                  Icons.delete_rounded,
+                  size: 24,
+                  color: Colors.black,),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Text('July22 , 2023', style: TextStyle(
+              child: Text(note.date, style: TextStyle(
                 color: Colors.black.withOpacity(0.5),
               ),),
             )
