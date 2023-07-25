@@ -23,7 +23,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
             const SizedBox(
